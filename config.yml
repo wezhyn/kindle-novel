@@ -1,0 +1,79 @@
+userAgent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Mobile Safari/537.36
+
+
+bodyIgnore:
+  - br
+  - -->>  center
+  - -->>
+  - 本章未完，点击下一页继续阅读
+
+site:
+  - name: xbiquge
+    method: get
+    update: .last9>li
+    refer: a;href
+    body: div#nr1
+    next: a#pb_next
+    nextName: 下一页
+  - name: xs98
+    method: get
+    update: div#chapterlist>p
+    refer: a;href
+    body: div#chaptercontent
+    next: NOne
+    nextName: None
+  - name: 1pxs
+    method: get
+    update: ul.novlist2>li
+    refer: a;href
+    body: div.mqq-content
+    next: None
+    nextName: None
+
+
+email:
+  username: xxx@qq.com
+  password: xxx
+  port: 465
+  host: smtp.qq.com
+  receiver: xx@kindle.cn
+  errReceiver: xxx@163.com
+
+novels:
+  - name: 前任无双
+    author: 跃千愁
+    cycle: false
+    rule:
+      - url: http://m.1pxs.com/read/73062/desc_1/
+        use: 1pxs
+      - url: https://m.xbiquge.cc/chapters_rev_50627/1
+        use: xbiquge
+      - url: https://m.xs98.com/xs274351/
+        use: xs98
+  - name: 剑来
+    author: 烽火戏诸侯
+    cycle: false
+    rule:
+      - url: https://m.xbiquge.cc/chapters_rev_13810/1
+        use: xbiquge
+      - url: https://m.xs98.com/xs222290/
+        use: xs98
+  - name: 大道朝天
+    author: 猫腻
+    cycle: true
+    rule:
+      - url: http://m.1pxs.com/read/17870/desc_1/
+        use: 1pxs
+      - url: https://m.xbiquge.cc/chapters_rev_25612/
+        use: xbiquge
+      - url: https://m.xs98.com/xs97935/
+        use: xs98
+
+  - name: 诡秘之主
+    author: 乌贼
+    cycle: false
+    rule:
+      - url: https://m.xbiquge.cc/chapters_rev_36327/
+        use: xbiquge
+      - url: https://m.xs98.com/xs140423/
+        use: xs98
