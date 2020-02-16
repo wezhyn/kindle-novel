@@ -41,7 +41,8 @@ func newCollector(c config.Config) *colly.Collector {
 func NewInstance(c config.Config) *Tune {
 	t := new(Tune)
 	t.updateCollector = newCollector(c)
-	t.updateCollector.Async = true
+	// 无法使用 并行模式，由于 colly 框架的自身限制，其并发执行时，将忽略执行错误，与 自实现重试冲突
+	//t.updateCollector.Async = true
 	t.crawlerCollector = newCollector(c)
 	t.channel = make(chan *GatherData, 3)
 	t.works = new(sync.Map)

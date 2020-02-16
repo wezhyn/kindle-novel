@@ -25,14 +25,8 @@ func (u UpdateItems) Len() int {
 }
 
 func (u UpdateItems) Less(i, j int) bool {
-	priorityI := u[i].Number
-	priorityJ := u[j].Number
-	if priorityI < 10 && priorityI > 0 {
-		priorityI *= 10000
-	}
-	if priorityJ < 10 && priorityJ > 0 {
-		priorityJ *= 10000
-	}
+	priorityI := getCyclePriority(u[i].Number)
+	priorityJ := getCyclePriority(u[j].Number)
 	return priorityI-priorityJ > 0
 }
 
@@ -56,14 +50,10 @@ func (t TxtItems) Less(i, j int) bool {
 	tj := t[j]
 	var ni, nj int = ti.Number, tj.Number
 	if tj.Cycle {
-		if tj.Number < 10 {
-			nj = 1000 * tj.Number
-		}
+		nj = getCyclePriority(tj.Number)
 	}
 	if ti.Cycle {
-		if ti.Number < 10 {
-			ni = 1000 * ti.Number
-		}
+		ni = getCyclePriority(ti.Number)
 	}
 	vi := ni + hashcode(ti.BookName)
 	vj := nj + hashcode(tj.BookName)

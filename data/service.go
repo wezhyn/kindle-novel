@@ -37,12 +37,25 @@ CurrentNum=45
 获取 2，1，46
 */
 func (c CycleFetchStrategy) Select(items []UpdateItem) []UpdateItem {
+	cu := getCyclePriority(c.CurrentNum)
 	for i, item := range items {
-		if item.Number == c.CurrentNum {
+		ci := getCyclePriority(item.Number)
+		if ci == cu && ci > cu {
 			return items[0:i]
 		}
 	}
-	return items
+	return items[0:0]
+}
+
+/*
+当数值在 0-10之间时，*1000
+*/
+func getCyclePriority(number int) int {
+	priority := number
+	if number < 10 && number > 0 {
+		priority = 1000 * number
+	}
+	return priority
 }
 
 /**
