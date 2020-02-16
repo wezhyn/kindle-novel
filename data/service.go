@@ -40,7 +40,7 @@ func (c CycleFetchStrategy) Select(items []UpdateItem) []UpdateItem {
 	cu := getCyclePriority(c.CurrentNum)
 	for i, item := range items {
 		ci := getCyclePriority(item.Number)
-		if ci == cu && ci > cu {
+		if ci == cu && ci >= cu {
 			return items[0:i]
 		}
 	}

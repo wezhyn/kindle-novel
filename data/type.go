@@ -57,7 +57,8 @@ func (t TxtItems) Less(i, j int) bool {
 	}
 	vi := ni + hashcode(ti.BookName)
 	vj := nj + hashcode(tj.BookName)
-	return vi-vj > 0
+	// 倒序
+	return vi-vj < 0
 }
 
 func (u TxtItems) Swap(i, j int) {
