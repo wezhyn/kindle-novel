@@ -6,8 +6,8 @@
 *.dll
 *.so
 *.dylib
-config_back.yml
 .idea
+config_back.yml
 
 # Test binary, built with `go test -c`
 *.test

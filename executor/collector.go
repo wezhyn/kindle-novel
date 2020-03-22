@@ -13,6 +13,7 @@ import (
 	"os"
 	"sort"
 	"sync"
+	"time"
 )
 
 type Tune struct {
@@ -84,6 +85,7 @@ func (t *Tune) Error(format string, a ...interface{}) {
 }
 
 func (t *Tune) UnRegister(task int64) {
+	time.Sleep(100)
 	t.mutex.Lock()
 	store, loaded := t.works.LoadOrStore(task, false)
 	if loaded {
@@ -190,11 +192,19 @@ func (t *Tune) togetherData(datas []GatherData) {
 		resultData.Body.Write(d.Body)
 	}
 	t.Info("收集到 %s %s:%d", resultData.BookName, resultData.Title, resultData.Number)
+	t.wg.Add(1)
 	novelBuffer = append(novelBuffer, *resultData)
+	t.wg.Done()
 }
 
 func (t *Tune) Wait() {
+
 	t.wg.Wait()
+	time.Sleep(1 * time.Second)
+	t.infoLogger.Println("再次等待1秒，检查是否还有未完成")
+	t.wg.Wait()
+	t.infoLogger.Println("检查完成")
+
 	if len(novelBuffer) > 0 {
 		clean := txt.Clean{}
 		mobiPath, err := clean.Clear(novelBuffer)
@@ -210,6 +220,7 @@ func (t *Tune) Wait() {
 			}
 		}
 	}
+
 }
 func (t Tune) SendChannelData(novel *GatherData) {
 	if t.Register(novel.IdentifyId) {

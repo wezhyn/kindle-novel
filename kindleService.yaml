@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-kindle
+spec:
+  schedule: "*/29 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: kindle-cron-job
+              image: kindle:v1
+          nodeSelector:
+            priority: 5
+          restartPolicy: Never
+          volumes:
+
+  concurrencyPolicy: Replace

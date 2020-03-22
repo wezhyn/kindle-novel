@@ -71,7 +71,7 @@ novels:
 
   - name: 诡秘之主
     author: 乌贼
-    cycle: false
+    cycle: true
     rule:
       - url: https://m.xbiquge.cc/chapters_rev_36327/
         use: xbiquge
